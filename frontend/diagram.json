@@ -1,0 +1,47 @@
+{
+    "name": "My First Diagram",
+    "canvas": {
+        "width": 2000,
+        "height": 2000,
+        "background": "#ffffff",
+        "grid": 10
+    },
+    "nodes": {
+        "n1": {
+            "id": "n1",
+            "type": "rectangle",
+            "x": 100,
+            "y": 100,
+            "width": 120,
+            "height": 60,
+            "text": "API Server"
+        },
+        "n2": {
+            "id": "n2",
+            "type": "rectangle",
+            "x": 300,
+            "y": 100,
+            "width": 120,
+            "height": 60,
+            "text": "Database"
+        }
+    },
+    "edges": {
+        "e1": {
+            "id": "e1",
+            "from": "n1",
+            "to": "n2",
+            "label": "reads/writes"
+        }
+    },
+    "groups": {
+        "g1": {
+            "id": "g1",
+            "name": "Backend",
+            "node_ids": [
+                "n1",
+                "n2"
+            ]
+        }
+    }
+}
