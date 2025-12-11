@@ -72,13 +72,46 @@
             margin: 0 auto 10px auto;
         }
 
+        /* Action buttons */
+        .action-btn {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .action-btn:hover {
+            background: #0056b3;
+        }
+
         /* Main canvas area */
         #canvas-container {
             flex: 1;
+            /* Takes all remaining space */
+            padding: 10px;
+            overflow: hidden;
+            /* Prevents scrollbars */
         }
 
         canvas {
+            width: 100%;
+            /* Fill container width */
+            height: calc(100vh - 20px);
+            /* Full height minus padding */
+            border: 1px solid #ccc;
             background: #f9f9f9;
+            display: block;
+            /* Removes extra space below canvas */
+        }
+
+        #info {
+            padding: 10px;
+            font-family: Arial;
         }
     </style>
 </head>
@@ -88,23 +121,30 @@
     <!-- Left Sidebar with Shapes -->
     <div id="sidebar">
         <h3>Shapes</h3>
-        
+
         <div class="shape-item rectangle" draggable="true" data-shape="rectangle">
             Rectangle
         </div>
-        
+
         <div class="shape-item circle" draggable="true" data-shape="circle">
             <span></span>
         </div>
-        
+
         <div class="shape-item diamond" draggable="true" data-shape="diamond">
             <span>◇</span>
         </div>
+
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;">
+
+        <button id="saveBtn" class="action-btn">Save JSON</button>
+        <button id="loadBtn" class="action-btn">Load JSON</button>
+        <input type="file" id="fileInput" accept=".json" style="display: none;">
     </div>
 
     <!-- Main Canvas Area -->
     <div id="canvas-container">
         <canvas id="diagramCanvas" width="800" height="600"></canvas>
+        <div id="info"></div>
     </div>
 
     <script type="module" src="./core/init.js"></script>
