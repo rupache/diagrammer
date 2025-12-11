@@ -2,9 +2,21 @@ import config from '../core/config.js';
 import { getResizeHandles } from '../utils/geometry.js';
 
 
-export let selectedNode = null;
+// Use an object so we can modify its properties from other modules
+export const selection = {
+    node: null
+};
+
+export function setSelectedNode(node) {
+    selection.node = node;
+}
+
+export function getSelectedNode() {
+    return selection.node;
+}
+
 export function drawNode(ctx, node) {
-    const isSelected = selectedNode && selectedNode.id === node.id;
+    const isSelected = selection.node && selection.node.id === node.id;
     ctx.strokeStyle = isSelected ? config.node.selectedStrokeColor : config.node.strokeColor;
     ctx.lineWidth = isSelected ? config.node.selectedStrokeWidth : config.node.strokeWidth;
 
