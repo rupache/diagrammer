@@ -209,15 +209,7 @@ function enableMouseEvents() {
 
         if (node) {
             selectedNode = node;// Highlight
-            currentNode = node;
-
-            document.getElementById("info").innerHTML =
-                `<b>Selected Node:</b><br>
-                    ID: ${node.id}<br>
-                    X: ${node.x}<br>
-                    Y: ${node.y}<br>
-                    Width: ${node.width}<br>
-                    Height: ${node.height}`;
+            currentNode = node;          
 
             offsetX = mouseX - node.x;
             offsetY = mouseY - node.y;

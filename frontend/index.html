@@ -4,12 +4,80 @@
 <head>
     <title>My Diagram Renderer</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
+            display: flex;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Left Sidebar - Shape Palette */
+        #sidebar {
+            width: 150px;
+            height: 100vh;
+            background: #f0f0f0;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        #sidebar h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Draggable shape items */
+        .shape-item {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 10px;
+            background: #fff;
+            border: 2px solid #333;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            user-select: none;
+        }
+
+        .shape-item:hover {
+            border-color: #007bff;
+            background: #e7f1ff;
+        }
+
+        .shape-item:active {
+            cursor: grabbing;
+        }
+
+        .shape-item.rectangle {
+            border-radius: 0;
+        }
+
+        .shape-item.diamond {
+            transform: rotate(45deg) scale(0.6);
+            margin: 15px auto;
+        }
+
+        .shape-item.diamond span {
+            transform: rotate(-45deg);
+        }
+
+        .shape-item.circle {
+            border-radius: 50%;
+            width: 50px;
+            margin: 0 auto 10px auto;
+        }
+
+        /* Main canvas area */
+        #canvas-container {
+            flex: 1;
         }
 
         canvas {
-            border: 1px solid #ccc;
             background: #f9f9f9;
         }
     </style>
@@ -17,8 +85,27 @@
 
 <body>
 
-    <canvas id="diagramCanvas" width="1000" style="display: inline-block;" height="600"></canvas>
-    <div id="info" style="padding:10px;font-family:Arial;display: inline-block; position: relative; top: -400px;"></div>
+    <!-- Left Sidebar with Shapes -->
+    <div id="sidebar">
+        <h3>Shapes</h3>
+        
+        <div class="shape-item rectangle" draggable="true" data-shape="rectangle">
+            Rectangle
+        </div>
+        
+        <div class="shape-item circle" draggable="true" data-shape="circle">
+            <span></span>
+        </div>
+        
+        <div class="shape-item diamond" draggable="true" data-shape="diamond">
+            <span>◇</span>
+        </div>
+    </div>
+
+    <!-- Main Canvas Area -->
+    <div id="canvas-container">
+        <canvas id="diagramCanvas" width="800" height="600"></canvas>
+    </div>
 
     <script type="module" src="./core/init.js"></script>
 </body>
