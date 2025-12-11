@@ -222,15 +222,33 @@ export function initCanvasEvents(canvas, diagram) {
             const connectionInfo = findConnectionPointAtPosition(diagram.nodes, mouseX, mouseY);
             
             if (connectionInfo && connectionInfo.node.id !== connectionStartNode.id) {
-                // Create new edge with specific connection points
-                const newEdge = createEdge(
-                    connectionStartNode.id, 
-                    connectionInfo.node.id,
-                    connectionStartPoint.name,  // e.g., 'right'
-                    connectionInfo.point.name   // e.g., 'left'
+                // Check for duplicate connection
+                const isDuplicate = Object.values(diagram.edges).some(edge => 
+                    // Same direction duplicate
+                    (edge.from === connectionStartNode.id && 
+                     edge.to === connectionInfo.node.id &&
+                     edge.fromPoint === connectionStartPoint.name &&
+                     edge.toPoint === connectionInfo.point.name) ||
+                    // Reverse direction duplicate (A→B same as B→A on same points)
+                    (edge.from === connectionInfo.node.id && 
+                     edge.to === connectionStartNode.id &&
+                     edge.fromPoint === connectionInfo.point.name &&
+                     edge.toPoint === connectionStartPoint.name)
                 );
-                diagram.edges[newEdge.id] = newEdge;
-                console.log('Connection created:', newEdge);
+                
+                if (isDuplicate) {
+                    console.log('Duplicate connection not allowed!');
+                } else {
+                    // Create new edge with specific connection points
+                    const newEdge = createEdge(
+                        connectionStartNode.id, 
+                        connectionInfo.node.id,
+                        connectionStartPoint.name,  // e.g., 'right'
+                        connectionInfo.point.name   // e.g., 'left'
+                    );
+                    diagram.edges[newEdge.id] = newEdge;
+                    console.log('Connection created:', newEdge);
+                }
             }
             
             isConnecting = false;
